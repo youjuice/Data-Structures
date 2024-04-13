@@ -106,6 +106,18 @@ int main()
 void printSmallerValues(BTNode *node, int m)
 {
 	/* add your code here */
+    // 1. 노드가 비어있는 경우
+    if (node == NULL)
+        return;
+    
+    // 2. 현재 노드가 m보다 작으면 출력
+    if (node->item < m) {
+        printf("%d ", node->item);
+    }
+
+    // 3. 재귀
+    printSmallerValues(node->left, m);
+    printSmallerValues(node->right, m);
 }
 
 //////////////////////////////////////////////////////////////////////////////////

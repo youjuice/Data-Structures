@@ -104,6 +104,21 @@ int sumOfOddNodes(BTNode *node)
 
 {
     /* add your code here */
+    // 1. 트리가 비어있으면 0 반환
+    if (node == NULL) 
+        return 0;
+
+    // 2. 재귀로 타고 내려가기
+    int leftSum = sumOfOddNodes(node->left);
+    int rightSum = sumOfOddNodes(node->right);
+
+    // 3. 노드가 홀수인지 체크하고 합산
+    int sum = 0;
+    if (node->item % 2 != 0) {
+        sum += node->item;
+    }
+
+    return sum + leftSum + rightSum;
 }
 
 //////////////////////////////////////////////////////////////////////////////////

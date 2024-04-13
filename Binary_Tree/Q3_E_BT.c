@@ -102,6 +102,21 @@ int countOneChildNodes(BTNode *node)
 
 {
     /* add your code here */
+    // 하나의 자식을 갖는 노드 수를 세는 함수
+    // 1. 노드가 비어 있으면 0 반환
+    if (node == NULL || (node->left == NULL && node->right == NULL)) {
+        return 0;
+    }
+    
+    // 2. 재귀로 타고 내려가면서 왼쪽이랑 오른쪽에서 하나의 자식을 갖는 노드 수 세기
+    int leftCount = countOneChildNodes(node->left);
+    int rightCount = countOneChildNodes(node->right);
+
+    // 3. 현재 노드가 하나의 자식을 갖는 경우 +1 -> left랑 right 중 하나가 없는 노드 체크
+    if ((node->left == NULL && node->right != NULL) || (node->left != NULL && node->right == NULL))
+        return 1 + leftCount + rightCount;
+    else 
+        return leftCount + rightCount;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////

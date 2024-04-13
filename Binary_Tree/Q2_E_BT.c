@@ -98,6 +98,27 @@ int maxHeight(BTNode *node)
 
 {
     /* add your code here */
+    // 노드가 비어있으면 -1
+    if (node == NULL)
+        return -1;
+    
+    // 왼쪽, 오른쪽, 최종 최대 높이 선언
+    int left = maxHeight(node->left);
+    int right = maxHeight(node->right);
+    int max;
+
+    // 만약 왼쪽, 오른쪽 중에 더 큰 높이 선택
+    if (left > right) {
+        max = left;
+    }
+    else {
+        max = right;
+    }
+
+    // 현재 높이는 max + 1
+    int curr = max + 1;
+
+    return curr;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
