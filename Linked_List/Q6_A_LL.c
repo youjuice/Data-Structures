@@ -88,7 +88,35 @@ int main()
 
 int moveMaxToFront(ListNode **ptrHead)
 {
+	// 1. 가장 큰 값을 찾기 위해 연결 리스트 순회
+	// 2. head 노드의 포인터 값을 변경하기 위해 이중 포인터 사용
+	// 3. 가장 큰 값을 가져올 때 그 max 노드를 가리키는 포인터는 유지
+
     /* add your code here */
+	if (*ptrHead == NULL || (*ptrHead)->next == NULL)
+		return 0;
+	
+	ListNode* maxNode = *ptrHead;
+	ListNode* prevMaxNode = NULL;
+	ListNode* curr = *ptrHead;
+	ListNode* prev = NULL;		
+
+	// 연결 리스트를 순회하며 가장 큰 값을 가진 노드를 찾음
+	while (curr->next != NULL) {
+		if (curr->next->item > maxNode->item) {		// 다음 노드의 값이 현재까지의 최댓값 maxNode보다 큰 경우
+			maxNode = curr->next;					// maxNode 업데이트
+			prevMaxNode = curr;						// 그 이전 노드는 현재 노드로 변경
+		}
+		prev = curr;								// 현재 노드를 다음 노드로 이동
+		curr = curr->next;
+	}
+
+	// 가장 큰 값을 가진 노드를 연결 리스트의 맨 앞으로 이동
+	if (prevMaxNode != NULL) {						// 만약 가장 큰 값을 가진 노드가 head 노드가 아니라면,
+		prevMaxNode->next = maxNode->next;			// 가장 큰 값을 가진 노드 삭제 후 앞 뒤 노드 연결
+		maxNode->next = *ptrHead;					// 가장 큰 값을 가진 노드의 다음 노드를 기존의 head 노드로 설정
+		*ptrHead = maxNode;							// ptrhead가 가리키는 값을 가장 큰 값을 가진 노드로 변경
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////////////

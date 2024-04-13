@@ -90,30 +90,38 @@ int main()
 
 int insertSortedLL(LinkedList *ll, int item)
 {   
+	// 1. 노드 설정 및 초기화
+	// 2. 연결 리스트가 비어있거나, 새로운 노드가 head 노드보다 작은 경우
+	// 3. 연결 리스트가 비어있지 않고, 새로운 노드의 데이터가 head 노드보다 작은 경우
+	// 4. 새로운 노드의 데이터가 이미 연결 리스트에 존재하는 경우 (중복된 데이터 오류 처리!!)
+	// 5. 노드를 적절한 위치에 삽입
+
+	/* add your code here */
     ListNode* newNode = (ListNode*) malloc (sizeof(ListNode));
     newNode -> item = item;
     newNode -> next = NULL;
 
-    if (ll -> head == NULL || item < ll -> head -> item) {
-        newNode -> next = ll -> head;
-        ll -> head = newNode;
-        ll -> size++;
+	// head 노드가 비어있거나 head보다 새 노드가 작은 경우
+    if (ll -> head == NULL || item < ll -> head -> item) {		
+        newNode -> next = ll -> head;		// 새로운 노드를 맨 앞에 삽입
+        ll -> head = newNode;				// head 재설정
+        ll -> size++;						// size +1
         return 0;
     }
 
-    ListNode* current = ll -> head;
+    ListNode* current = ll -> head;			// head 노드부터 탐색 시작
     while (current -> next != NULL && current -> next -> item < item) {
-        current = current -> next;
+        current = current -> next;			// 적절한 삽입 위치 찾기
     };
 
-    if (current -> item == item) {
-        free(newNode);
-        return -1;
+    if (current -> item == item) {			// 값이 중복된다면
+        free(newNode);						// 메모리 해제
+        return -1;							// 오류 처리
     }
 
-    newNode -> next = current -> next;
+    newNode -> next = current -> next;		// 새 노드를 적절한 위치에 삽입
     current -> next = newNode;
-    ll -> size++;
+    ll -> size++;							// size +1
     return 0;
 }
 

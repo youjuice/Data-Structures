@@ -86,7 +86,60 @@ int main()
 
 void moveEvenItemsToBack(LinkedList *ll)
 {
+	// 1. 링크드 리스트 순회 후 홀수인지 확인 (노드와 리스트가 비어있는지 체크 필요!!)
+	// 2. 홀수 노드를 찾으면 해당 노드를 연결 리스트에서 제거 (제거 후 짝수 노드들끼리 연결!!)
+	// 3. oddHead부터 시작해서 홀수 노드들끼리 모으기 (홀수 노드끼리 연결하려면, oddTail 필요!!)
+	// 4. 짝수 노드들끼리 모인 링크드 리스트와 홀수 노드들끼리 모인 링크드 리스트 연결
+
 	/* add your code here */
+	// 리스트가 비어있다면 return
+	if (ll == NULL || ll->head == NULL) {
+		return;
+	}
+
+	ListNode* curr = ll->head;		// head 노드부터 탐색
+	ListNode* prev = NULL;			// 이전 노드 초기화
+	ListNode* evenHead = NULL;		// 짝수 링크드 리스트 head 초기화
+	ListNode* evenTail = NULL;		// 짝수 링크드 리스트 tail 초기화
+
+	// 노드가 비어있지 않다면
+	while (curr != NULL) {
+		if (curr->item % 2 == 0) {			// 현재 노드가 짝수일 때,
+			if (evenHead == NULL) {			// evenHead가 비어있다면,
+				evenHead = curr;			// evenHead 설정
+				evenTail = curr;			// evenTail 설정
+			}
+			else {							
+				evenTail->next = curr;		// 이미 차있다면, 
+				evenTail = curr;			// 링크드 리스트 연결
+			}
+
+			if (prev == NULL) {				// head 노드가 짝수라면
+				ll->head = curr->next;		// 다음 노드를 head로 지정
+			}
+			else {							// 아니라면,
+				prev->next = curr->next;	// 링크드 리스트에서 제거
+			}
+
+			curr = curr->next;				// 이동하면서 탐색
+			evenTail->next = NULL;			// tail 노드의 next는 NULL
+		}
+
+		else {								// 홀수 노드들끼리 연결
+			prev = curr;
+			curr = curr->next;
+		}
+	}
+
+	if (evenHead != NULL) {					// evenHead가 있을 경우
+		if(ll->head == NULL) {				// 링크드 리스트가 모두 짝수인 경우
+			ll->head = evenHead;
+		}
+
+		else {
+			prev->next = evenHead;			// 홀수 노드들과 짝수 노드들 연결
+		}
+	}
 }
 
 ///////////////////////////////////////////////////////////////////////////////////

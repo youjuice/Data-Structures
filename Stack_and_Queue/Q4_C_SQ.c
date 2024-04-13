@@ -44,6 +44,7 @@ void push(Stack *s, int item);
 int pop(Stack *s);
 int peek(Stack *s);
 int isEmptyStack(Stack *s);
+void initializeStack(Stack *s);
 
 void enqueue(Queue *q, int item);
 int dequeue(Queue *q);
@@ -112,7 +113,32 @@ int main()
 
 void reverse(Queue *q)
 {
-/* add your code here */
+	// 1. 일단 다 빼야됨 
+	// 2. 그 다음?? 스택에 넣고
+	// 3. 다시 빼
+
+	/* add your code here */
+	Stack s;
+	initializeStack(&s);
+
+	// 큐에서 빼서 스택에 넣고
+	while (!isEmptyQueue(q)) {
+		int item = dequeue(q);
+		push(&s, item);
+	}
+
+	// 스택에서 빼서 큐에 넣으면 알아서 reverse
+	while (!isEmptyStack(&s)) {
+		int item = pop(&s);
+		enqueue(q, item);
+	}
+}
+
+// 스택 초기화 **
+void initializeStack(Stack *s) {
+	s->ll.size = 0;
+	s->ll.head = NULL;
+	s->ll.tail = NULL;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////

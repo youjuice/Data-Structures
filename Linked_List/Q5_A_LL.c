@@ -102,7 +102,33 @@ int main()
 
 void frontBackSplitLinkedList(LinkedList *ll, LinkedList *resultFrontList, LinkedList *resultBackList)
 {
+	// 1. 전체 연결 리스트의 크기 확인
+	// 2. 이를 통해 각각의 서브 리스트 크기 결정
+	// 3. 새로운 빈 연결 리스트 생성 후 기존의 연결 리스트에서 노드 이동
+
 	/* add your code here */
+	// 오류 체크
+	if (ll == NULL || ll->head == NULL) 
+		return;
+	
+	// 사이즈 계산
+	int size = ll->size;
+	int frontSize = size / 2;
+	if (size % 2 != 0) 
+		frontSize++;
+
+	// 첫 번째 링크드 리스트 생성
+	resultFrontList->head = ll->head;
+	ListNode* curr = ll->head;
+	for (int i = 1; i < frontSize; i++) {
+		curr = curr->next;
+	}
+	resultFrontList->size = frontSize;
+
+	// 두 번째 링크드 리스트 생성
+	resultBackList->head = curr->next;
+	resultBackList->size = size - frontSize;
+	curr->next = NULL;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////

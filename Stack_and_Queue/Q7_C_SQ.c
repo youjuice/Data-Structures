@@ -8,6 +8,7 @@ Purpose: Implementing the required functions for Question 7 */
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #define MIN_INT -1000
 
@@ -104,7 +105,46 @@ int main()
 ////////////////////////////////////////////////////////////
 int balanced(char *expression)
 {
-/* add your code here */
+	/* add your code here */
+	// 스택 초기화
+	Stack s;
+	s.ll.size = 0;
+	s.ll.head = NULL;
+
+	int len = strlen(expression);
+
+	for (int i = 0; i < len; i++) {
+		char ch = expression[i];
+
+		// 여는 괄호는 스택에 push
+		if (ch == '(' || ch == '[' || ch == '{') {
+			push(&s, ch);
+		}
+
+		// 닫는 괄호인 경우
+		else if (ch == ')' || ch == ']' || ch == '}') {
+			// 비어있다면, False
+			if (isEmptyStack(&s)) 
+				return 0;
+			
+			// 스택의 맨 위에 있는 괄호와 현재 처리중인 괄호가 쌍을 이루고 있는지 체크
+			char top = peek(&s);
+			if ((ch == ')' && top == '(') || (ch == '}' && top == '{') || (ch == ']' && top == '[')) {
+				pop(&s);	// 쌍을 이루면 해당 괄호를 pop
+			}
+			// 그 외의 경우에는 False
+			else {
+				return 0;
+			}
+		}
+	}
+
+	// 처리가 끝나고 스택에 괄호가 남아있다면 False
+	if (!isEmptyStack(&s)) {
+		return 0;
+	}
+
+	return 1;		// 모든 조건을 만족하면 True
 }
 
 ////////////////////////////////////////////////////////////

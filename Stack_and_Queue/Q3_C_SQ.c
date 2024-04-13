@@ -103,7 +103,28 @@ int main()
 
 int isStackPairwiseConsecutive(Stack *s)
 {
-  /* add your code here */
+	// 1. 스택의 크기가 홀수이면 False
+	// 2. 스택의 크기가 짝수이고, 연속된 노드들이 연속된 수인지 확인
+
+	/* add your code here */
+	LinkedList* ll = &(s->ll);		// 포인터 형이므로 주소값 넣어주기
+	int size = ll->size;
+
+	if (size % 2 != 0) {
+		return 0;
+	}
+
+	ListNode* curr = ll->head;
+	while (curr != NULL && curr->next != NULL) {
+		int pair1 = pop(s);
+		int pair2 = pop(s);
+
+		if (abs(pair1 - pair2) != 1) {		// 연속된 값인지 체크
+			return 0;
+		}
+	}
+
+	return 1;
 }
 
 //////////////////////////////////////////////////////////////////////////////////

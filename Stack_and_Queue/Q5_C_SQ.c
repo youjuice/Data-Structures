@@ -109,7 +109,18 @@ int main()
 
 void recursiveReverse(Queue *q)
 {
-/* add your code here */
+	// 1. 재귀 탈출 조건 설정
+	// 2. 우선 큐에서 아이템 빼고
+	// 3. 콜스택이 쌓이면 재귀적으로 reverse
+	
+	/* add your code here */
+	if (isEmptyQueue(q)) 
+		return 0;
+	
+	int item = dequeue(q);
+	recursiveReverse(q);
+
+	enqueue(q, item);
 }
 
 //////////////////////////////////////////////////////////////////
