@@ -92,6 +92,32 @@ int main()
 void postOrderIterativeS1(BSTNode *root)
 {
 	 /* add your code here */
+	 // 후위 순회 (왼쪽 -> 오른쪽 -> 루트)
+	 if (root == NULL)
+	 	return;
+	
+	Stack* s = (Stack*)malloc(sizeof(Stack));
+	BSTNode* curr = root;
+	BSTNode* last = NULL;
+
+	while (curr != NULL || !isEmpty(s)) {
+		while (curr != NULL) {
+			push(s, curr);					// 스택에 삽입
+			curr = curr->left;				// 왼쪽 자식 노드로 이동
+		}
+
+		curr = peek(s);						// 꼭대기에 있는 노드 가져오기
+
+		if (curr->right == NULL || curr->right == last) {	// 오른쪽 자식이 NULL 또는 이미 방문했는지 확인
+			curr = pop(s);					// 현재 노드를 pop하고
+			printf("%d ", curr->item);		// 출력
+			last = curr;					// 마지막으로 방문한 노드 갱신
+			curr = NULL;					// 현재 노드 NULL 설정 ***** (스택에서 부모 노드를 꺼내기 위해!!)
+		}
+		else {
+			curr = curr->right;				// 오른쪽 자식 노드로 이동
+		}		
+	}
 }
 
 ///////////////////////////////////////////////////////////////////////////////

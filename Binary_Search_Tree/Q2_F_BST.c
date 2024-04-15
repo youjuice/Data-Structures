@@ -91,6 +91,24 @@ int main()
 void inOrderTraversal(BSTNode *root)
 {
 	 /* add your code here */
+	 // 중위 순회 (왼쪽 -> 루트 -> 오른쪽)
+	 if (root == NULL)
+	 	return;
+
+	Stack* s = (Stack*)malloc(sizeof(Stack));
+	BSTNode* curr = root;
+
+	while (curr != NULL || !isEmpty(s)) {
+		while (curr != NULL) {
+			push(s, curr);			// 현재 노드 스택에 추가
+			curr = curr->left;		// 왼쪽 자식 노드로 이동
+		}
+
+		curr = pop(s);				// 스택에서 노드를 pop
+		printf("%d ", curr->item);	// 현재 노드 출력
+
+		curr = curr->right;			// 오른쪽 자식 노드로 이동  
+	}
 }
 
 ///////////////////////////////////////////////////////////////////////////////
