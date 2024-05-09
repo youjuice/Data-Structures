@@ -122,6 +122,9 @@ int main()
 // 		BSTNode* curr = pop(s2);
 // 		printf("%d ", curr->item);
 // 	}
+
+// 	free(s1);
+// 	free(s2);
 // }
 
 void postOrderIterativeS2(BSTNode *root)
